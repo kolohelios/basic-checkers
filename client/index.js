@@ -2,12 +2,27 @@
 
 $(document).ready(init);
 
+var current = 'pig';
+
 function init(){
   initBoard();
+  switchUser();
+  $('board').on('click', '.active', select);
 }
 
 function initBoard(){
-  $('#board tr:lt(3) .valid').addClass('p1 pig');
-  $('#board tr:gt(4) .valid').addClass('p2 bird');
-  $('#board td:not(.p1 .p2)').addClass('empty');
+  $('#board tr:lt(3) .valid').addClass('player pig');
+  $('#board tr:gt(4) .valid').addClass('player bird');
+  $('#board td:not(.player)').addClass('empty');
+
+}
+
+function switchUser(){
+  current = (current === 'pig') ? 'bird' : 'pig';
+  $('.valid').removeClass('active selected');
+  $('.' + current).addClass('active');
+}
+
+function select(){
+  
 }
