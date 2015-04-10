@@ -36,6 +36,45 @@ function move(){
     compass.west = compass.east *= -1;
     compass.south = compass.north *= -1;
 
+    switch(moveType(src, tgt, compass, isKing)){
+      case 'move':
+        movePiece($source, $target);
+        switchUser();
+
+        break;
+      case 'jump':
+        console.log('jump!');
+    }
+  }
+}
+
+function movePiece($source, $target){
+  var targetClasses = $target.attr('class');
+  var sourceClasses = $source.attr('class');
+  $source.attr('class', targetClasses);
+  $target.attr('class', sourceClasses);
+}
+
+function moveType(src, tgt, compass, isKing){
+  if(isMove(src, tgt, compass, isKing)){
+    return 'move';
+  }
+  if(isJump() && isEnemy()){
+    return 'jump';
+  }
+  function isMove(src, tgt, compass, isKing){
+    return (src.x + compass.east === tgt.x ||
+      (src.x + compass.west === tgt.x) &&
+      (src.y + compass.north === tgt.y) ||
+      (isKing && src.y + compass.south === tgt.y));
+  }
+
+  function isJump(){
+
+  }
+
+  function isEnemy(){
+
   }
 }
 
